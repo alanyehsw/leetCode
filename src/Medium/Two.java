@@ -40,11 +40,38 @@ public class Two {
     }
     
     public static void main (String[] args) {
-        // TODO:不知道此變數怎麼 new 才可進行測試
-        ListNode l1 = new ListNode(243);
-        ListNode l2 = new ListNode(564);
+        // case 1
+        /*
+        ListNode l1ToOne = new ListNode(3);
+        ListNode l1ToTwo = new ListNode(4, l1ToOne);
+        ListNode l1ToEnd = new ListNode(2, l1ToTwo);
+        ListNode l2ToOne = new ListNode(4);
+        ListNode l2ToTwo = new ListNode(6, l2ToOne);
+        ListNode l2ToEnd = new ListNode(5, l2ToTwo);
+        */
+        // case 2
+        /*
+        ListNode l1ToEnd = new ListNode(0);
+        ListNode l2ToEnd = new ListNode(0);
+        */
+        // case 3
+        ListNode l1To1 = new ListNode(9);
+        ListNode l1To2 = new ListNode(9, l1To1);
+        ListNode l1To3 = new ListNode(9, l1To2);
+        ListNode l1To4 = new ListNode(9, l1To3);
+        ListNode l1To5 = new ListNode(9, l1To4);
+        ListNode l1To6 = new ListNode(9, l1To5);
+        ListNode l1ToEnd = new ListNode(9, l1To6);
 
-        System.out.println(addTwoNumbers(l1, l2));
+        ListNode l2To1 = new ListNode(9);
+        ListNode l2To2 = new ListNode(9, l2To1);
+        ListNode l2To3 = new ListNode(9, l2To2);
+        ListNode l2ToEnd = new ListNode(9, l2To3);
+        
+        ListNode l1 = l1ToEnd;
+        ListNode l2 = l2ToEnd;
+
+        addTwoNumbers(l1, l2);
     }
 
     private static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
