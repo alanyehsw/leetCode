@@ -1,6 +1,8 @@
 package Easy;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /*
     Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
@@ -54,14 +56,16 @@ public class Thirteen {
         // String s = "LVIII";
         // case 3
         String s = "MCMXCIV";
-        System.out.println(s + " : " + romanToInt(s));
+        // System.out.println(s + " : " + romanToInt(s));
+        // System.out.println(s + " : " + romanToIntWay2(s));
+        System.out.println(s + " : " + romanToIntWay3(s));
     }
 
     /*
      * soln 1.
      * 4(IV) 9(IX) 40(XL) 90(XC) 400(CD) 900(CM) 特殊數字
     */
-    public static int romanToInt(String s) {
+    private static int romanToInt(String s) {
         int intS = 0;
 
         // 初始化羅馬數字對應的值
@@ -132,5 +136,76 @@ public class Thirteen {
             }
         }
         return intS;
+    }
+
+    private static int romanToIntWay2 (String s) {
+        int sum = 0;
+
+        Map<String, Integer> romanNumeral = new HashMap<>();
+        romanNumeral.put("I", 1);
+        romanNumeral.put("V", 5);
+        romanNumeral.put("X", 10);
+        romanNumeral.put("L", 50);
+        romanNumeral.put("C", 100);
+        romanNumeral.put("D", 500);
+        romanNumeral.put("M", 1000);
+        romanNumeral.put("IV", 4);
+        romanNumeral.put("IX", 9);
+        romanNumeral.put("XL", 40);
+        romanNumeral.put("XC", 90);
+        romanNumeral.put("CD", 400);
+        romanNumeral.put("CM", 900);
+
+        while (s.length() >= 1) {
+            // System.out.println("s.length() : " + s.length());
+            
+            if (s.length() >= 2) {
+                if (romanNumeral.get(s.substring(0, 2)) != null) {
+                    // System.out.println("s.substring(0, 2) : " + s.substring(0, 2));
+                    sum += romanNumeral.get(s.substring(0, 2));
+                    s = s.substring(2, s.length());
+                    continue;
+                }
+            }
+            if (romanNumeral.get(s.substring(0, 1)) != null) {
+                // System.out.println("s.substring(0, 1) : " + s.substring(0, 1));
+                sum += romanNumeral.get(s.substring(0, 1));
+                s = s.substring(1, s.length());
+            }
+        }
+
+        return sum;
+    }
+
+    private static int romanToIntWay3 (String s) {
+        int ans = 0, num = 0;
+        for (int i = s.length()-1; i >= 0; i--) {
+            switch(s.charAt(i)) {
+                case 'I':
+                    num = 1;
+                    break;
+                case 'V':
+                    num = 5;
+                    break;
+                case 'X':
+                    num = 10;
+                    break;
+                case 'L':
+                    num = 50;
+                    break;
+                case 'C':
+                    num = 100;
+                    break;
+                case 'D':
+                    num = 500;
+                    break;
+                case 'M':
+                    num = 1000;
+                    break;
+            }
+            if (4 * num < ans) ans -= num;
+            else ans += num;
+        }
+        return ans;
     }
 }
